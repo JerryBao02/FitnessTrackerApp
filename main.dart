@@ -30,17 +30,17 @@ class FitnessTrackerScreen extends StatelessWidget {
               Text(
                 'Welcome To Fitness Tracker!',
                 style: TextStyle(
-                  fontSize: 24, // Maintained original font size
+                  fontSize: 24, 
                   fontWeight: FontWeight.bold,
                 ),
               ),
               
-              SizedBox(height: 20), // Consistent spacing
+              SizedBox(height: 20), 
               
               // Image container for visual appeal
               Container(
                 width: double.infinity,
-                height: 250, // Maintained original image height
+                height: 250, 
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/appimage.png'),
@@ -49,20 +49,20 @@ class FitnessTrackerScreen extends StatelessWidget {
                 ),
               ),
               
-              SizedBox(height: 20), // Consistent spacing
+              SizedBox(height: 20),
 
               // Motivational text
               Text(
                 'Do it for the past version of yourself!',
                 style: TextStyle(
-                  fontSize: 16, // Kept the font size
-                  color: Colors.grey[600], // Adjusted grey tone slightly
+                  fontSize: 16, 
+                  color: Colors.grey[600], 
                 ),
               ),
               
-              SizedBox(height: 30), // Consistent spacing
+              SizedBox(height: 30), 
               
-              // Log In button with styling adjustments
+        
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -71,16 +71,16 @@ class FitnessTrackerScreen extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[300], // Light grey as requested
-                  foregroundColor: Colors.black, // Black text color
-                  minimumSize: Size(200, 50), // Kept original size
+                  backgroundColor: Colors.grey[300], 
+                  foregroundColor: Colors.black, 
+                  minimumSize: Size(200, 50), 
                 ),
                 child: Text('Log In'),
               ),
               
-              SizedBox(height: 10), // Maintained original spacing
+              SizedBox(height: 10), 
               
-              // Sign Up button with some styling changes
+           
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -89,8 +89,8 @@ class FitnessTrackerScreen extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Blue color for contrast
-                  minimumSize: Size(200, 50), // Kept original size
+                  backgroundColor: Colors.blue,
+                  minimumSize: Size(200, 50), 
                 ),
                 child: Text('Sign Up'),
               ),
@@ -101,4 +101,3 @@ class FitnessTrackerScreen extends StatelessWidget {
     );
   }
 }
-
