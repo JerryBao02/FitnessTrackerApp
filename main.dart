@@ -2,6 +2,10 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'createaccount.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/log_screen.dart';
+import 'screens/edit_exercise.dart';
 
 
 void main() {
