@@ -6,7 +6,7 @@ import 'screens/dashboard_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/log_screen.dart';
 import 'screens/edit_exercise.dart';
-
+import 'screens/body_heat_map.dart';
 
 void main() {
   runApp(MyApp());
