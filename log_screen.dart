@@ -8,12 +8,11 @@ class LogScreen extends StatefulWidget {
 class _LogScreenState extends State<LogScreen> {
   bool isDayView = true; // Toggle between Day and Week views
 
-  // Sample day log data
-  final List<Map<String, dynamic>> dayLogs = [
+  final List<Map<String, dynamic>> logs = [
     {
       "time": "8:30 AM",
       "activity": "Bench Press",
-      "sets": "3 Sets",
+      "sets": 3,
       "details": [
         {"set": 1, "reps": 10, "weight": "100 lbs"},
         {"set": 2, "reps": 8, "weight": "135 lbs"},
@@ -23,7 +22,7 @@ class _LogScreenState extends State<LogScreen> {
     {
       "time": "9:30 AM",
       "activity": "Dumbbell Row",
-      "sets": "3 Sets",
+      "sets": 3,
       "details": [
         {"set": 1, "reps": 12, "weight": "50 lbs"},
         {"set": 2, "reps": 10, "weight": "60 lbs"},
@@ -33,7 +32,7 @@ class _LogScreenState extends State<LogScreen> {
     {
       "time": "10:00 AM",
       "activity": "Squats",
-      "sets": "3 Sets",
+      "sets": 3,
       "details": [
         {"set": 1, "reps": 15, "weight": "Bodyweight"},
         {"set": 2, "reps": 12, "weight": "135 lbs"},
@@ -42,127 +41,132 @@ class _LogScreenState extends State<LogScreen> {
     },
   ];
 
-  // Sample week log data
-  final List<Map<String, String>> weekLogs = [
-    {"day": "Monday", "summary": "Bench Press, Dumbbell Row, Squats"},
-    {"day": "Wednesday", "summary": "Deadlift, Pull-ups, Lunges"},
-    {"day": "Friday", "summary": "Overhead Press, Push-ups, Plank"},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Activity Log"),
+        title: const Text("Activity Log"),
         backgroundColor: Colors.blueAccent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // Toggle Buttons for Day/Week View
-            Row(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Toggle Day/Week view
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ToggleButton(
-                  label: "Day",
-                  isActive: isDayView,
-                  onTap: () {
-                    setState(() {
-                      isDayView = true;
-                    });
-                  },
+                _buildToggleButton("Day", isDayView, () {
+                  setState(() {
+                    isDayView = true;
+                  });
+                }),
+                _buildToggleButton("Week", !isDayView, () {
+                  setState(() {
+                    isDayView = false;
+                  });
+                }),
+              ],
+            ),
+          ),
+
+          // Date and Filter Row
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.calendar_today, color: Colors.blue),
+                    const SizedBox(width: 8),
+                    Text(
+                      "Wed, Oct 2, 2024",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                  ],
                 ),
-                ToggleButton(
-                  label: "Week",
-                  isActive: !isDayView,
-                  onTap: () {
-                    setState(() {
-                      isDayView = false;
-                    });
-                  },
+                Stack(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // Add filter functionality
+                      },
+                      icon: Icon(Icons.filter_list, color: Colors.blue),
+                    ),
+                    Positioned(
+                      right: 4,
+                      top: 4,
+                      child: CircleAvatar(
+                        radius: 8,
+                        backgroundColor: Colors.red,
+                        child: Text(
+                          "4",
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            // Display Day or Week Logs
-            Expanded(
-              child: isDayView ? _buildDayLogs() : _buildWeekLogs(),
+          ),
+
+          // Logs List
+          Expanded(
+            child: ListView.builder(
+              itemCount: logs.length,
+              itemBuilder: (context, index) {
+                final log = logs[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
+                  child: ExpansionTile(
+                    title: Text(
+                      "${log["time"]} • ${log["activity"]}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text("Sets: ${log["sets"]}"),
+                    children: log["details"].map<Widget>((detail) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 4.0),
+                        child: Text(
+                          "Set ${detail["set"]}: ${detail["reps"]} reps • ${detail["weight"]}",
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  // Widget for Day Logs
-  Widget _buildDayLogs() {
-    return ListView.builder(
-      itemCount: dayLogs.length,
-      itemBuilder: (context, index) {
-        final log = dayLogs[index];
-        return Card(
-          margin: EdgeInsets.symmetric(vertical: 8.0),
-          child: ExpansionTile(
-            title: Text("${log["time"]} • ${log["activity"]}"),
-            subtitle: Text(log["sets"]),
-            children: log["details"].map<Widget>((detail) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                child: Text(
-                  "Set ${detail["set"]}: ${detail["reps"]} reps • ${detail["weight"]}",
-                  style: TextStyle(fontSize: 14),
-                ),
-              );
-            }).toList(),
-          ),
-        );
-      },
-    );
-  }
-
-  // Widget for Week Logs
-  Widget _buildWeekLogs() {
-    return ListView.builder(
-      itemCount: weekLogs.length,
-      itemBuilder: (context, index) {
-        final log = weekLogs[index];
-        return Card(
-          margin: EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            title: Text(log["day"]!),
-            subtitle: Text(log["summary"]!),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class ToggleButton extends StatelessWidget {
-  final String label;
-  final bool isActive;
-  final VoidCallback onTap;
-
-  const ToggleButton({
-    required this.label,
-    required this.isActive,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildToggleButton(String label, bool isActive, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         decoration: BoxDecoration(
           color: isActive ? Colors.blue : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           label,
-          style: TextStyle(color: isActive ? Colors.white : Colors.black),
+          style: TextStyle(
+            color: isActive ? Colors.white : Colors.blue,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
