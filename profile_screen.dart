@@ -7,15 +7,6 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Profile"),
         backgroundColor: Colors.blueAccent,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              // Navigate to Settings Screen
-              showSnackbar(context, "Settings button pressed");
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,57 +24,36 @@ class ProfileScreen extends StatelessWidget {
             Text("@username", style: TextStyle(color: Colors.grey)),
             SizedBox(height: 20),
             ListTile(
-              leading: Icon(Icons.person),
+              leading: Icon(Icons.person, color: Colors.blue), // Updated icon style
               title: Text("Name"),
               subtitle: Text("User"),
-              trailing: Icon(Icons.edit),
-              onTap: () {
-                // Edit Name functionality
-                showSnackbar(context, "Edit Name button pressed");
-              },
+              trailing: Icon(Icons.edit, color: Colors.grey),
             ),
             ListTile(
-              leading: Icon(Icons.email),
+              leading: Icon(Icons.email, color: Colors.blue), // Updated icon style
               title: Text("Email"),
               subtitle: Text("user@example.com"),
-              trailing: Icon(Icons.edit),
-              onTap: () {
-                // Edit Email functionality
-                showSnackbar(context, "Edit Email button pressed");
-              },
+              trailing: Icon(Icons.edit, color: Colors.grey),
             ),
             ListTile(
-              leading: Icon(Icons.location_on),
+              leading: Icon(Icons.location_on, color: Colors.blue), // Updated icon style
               title: Text("Location"),
               subtitle: Text("New York, USA"),
-              trailing: Icon(Icons.edit),
-              onTap: () {
-                // Edit Location functionality
-                showSnackbar(context, "Edit Location button pressed");
-              },
+              trailing: Icon(Icons.edit, color: Colors.grey),
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.privacy_tip),
+              leading: Icon(Icons.privacy_tip, color: Colors.blue), // Updated icon style
               title: Text("Privacy Settings"),
-              onTap: () {
-                // Navigate to Privacy Settings
-                showSnackbar(context, "Privacy Settings button pressed");
-              },
             ),
             ListTile(
-              leading: Icon(Icons.help),
+              leading: Icon(Icons.help, color: Colors.blue), // Updated icon style
               title: Text("Help Center"),
-              onTap: () {
-                // Navigate to Help Center
-                showSnackbar(context, "Help Center button pressed");
-              },
             ),
             Spacer(),
             TextButton(
               onPressed: () {
                 // Log out functionality
-                showSnackbar(context, "Log Out button pressed");
               },
               child: Text(
                 "Log Out",
@@ -92,15 +62,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: Duration(seconds: 1),
       ),
     );
   }
