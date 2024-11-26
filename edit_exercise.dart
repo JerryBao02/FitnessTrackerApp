@@ -70,8 +70,12 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Exercise'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -88,7 +92,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               onTap: _pickDate,
               child: InputDecorator(
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.calendar_today),
+                  prefixIcon: Icon(Icons.calendar_today, color: Colors.blueAccent),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -108,7 +112,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               onTap: _pickTime,
               child: InputDecorator(
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.access_time),
+                  prefixIcon: Icon(Icons.access_time, color: Colors.blueAccent),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -127,6 +131,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
             DropdownButtonFormField<String>(
               value: _selectedExercise,
               decoration: InputDecoration(
+                prefixIcon: Icon(Icons.fitness_center, color: Colors.blueAccent),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -167,8 +172,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          onChanged: (value) => _editSet(
-                              index, 'sets', int.tryParse(value) ?? 1),
+                          onChanged: (value) => _editSet(index, 'sets', int.tryParse(value) ?? 1),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -182,15 +186,13 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          onChanged: (value) => _editSet(
-                              index, 'reps', int.tryParse(value) ?? 10),
+                          onChanged: (value) => _editSet(index, 'reps', int.tryParse(value) ?? 10),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: TextFormField(
-                          initialValue:
-                          _exerciseSets[index]['weight'].toString(),
+                          initialValue: _exerciseSets[index]['weight'].toString(),
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -198,12 +200,11 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          onChanged: (value) => _editSet(
-                              index, 'weight', int.tryParse(value) ?? 100),
+                          onChanged: (value) => _editSet(index, 'weight', int.tryParse(value) ?? 100),
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.delete),
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
                         onPressed: () => _removeSet(index),
                       ),
                     ],
@@ -215,9 +216,10 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
             Center(
               child: ElevatedButton.icon(
                 onPressed: _addSet,
-                icon: const Icon(Icons.add),
+                icon: const Icon(Icons.add, color: Colors.white),
                 label: const Text('Add Set'),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
@@ -234,7 +236,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
+                      backgroundColor: Colors.redAccent,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     child: const Text('Cancel'),
@@ -247,7 +249,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                       // Save functionality can go here
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.blueAccent,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     child: const Text('Save'),
